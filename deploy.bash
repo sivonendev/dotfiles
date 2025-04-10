@@ -14,8 +14,13 @@ _copy()
     confirm "Copy '$1' to '$2'?" && cp -v -b --suffix="${BACKUP_SUFFIX}" "${THISDIR}/$1" "$2"
 }
 
+clone_or_update() {
+    local plugindir=$(basename "$1" .git)
+    [[ -d "$plugindir" ]] && git -C "$plugindir" pull || git clone "$1"
+}
+
 deploy_vim_plugins() {
-    local plugindir="$HOME/.vim/pack/plugins/start"
+    local vimplugindir="$HOME/.vim/pack/plugins/start"
     local plugins=(
         "https://github.com/dense-analysis/ale"
         "https://github.com/preservim/nerdtree"
@@ -31,18 +36,18 @@ deploy_vim_plugins() {
     local colorsdir="$HOME/.vim/pack/colors/opt"
     local colorscheme="https://github.com/joshdick/onedark.vim.git"
 
-    mkdir -p "$plugindir"
+    mkdir -p "$vimplugindir"
 
-    pushd "$plugindir"
+    pushd "$vimplugindir"
     for plugin in ${plugins[*]}
     do
-        git clone "$plugin"
+        clone_or_update "$plugin"
     done
     popd
 
     mkdir -p "$colorsdir"
     pushd "$colorsdir"
-    git clone "$colorscheme"
+    clone_or_update "$colorscheme"
     popd
 }
 
