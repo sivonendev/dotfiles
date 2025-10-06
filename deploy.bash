@@ -66,6 +66,7 @@ case "$1" in
 
         _copy bash_profile ~/.bash_profile
         _copy bashrc ~/.bashrc
+        _copy gdbinit ~/.gdbinit
         _copy gitconfig ~/.gitconfig
         _copy rc.lua ~/.config/awesome/rc.lua
         _copy tmux.conf ~/.tmux.conf
@@ -78,6 +79,7 @@ case "$1" in
     *)
         file_status bash_profile ~/.bash_profile
         file_status bashrc ~/.bashrc
+        file_status gdbinit ~/.gdbinit
         file_status gitconfig ~/.gitconfig
         file_status rc.lua ~/.config/awesome/rc.lua
         file_status tmux.conf ~/.tmux.conf
