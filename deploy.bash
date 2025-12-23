@@ -51,6 +51,15 @@ deploy_vim_plugins() {
     popd
 }
 
+deploy_alacritty() {
+    local alacrittydir="$HOME/.config/alacritty/"
+
+    mkdir -p "$alacrittydir"
+    pushd "$alacrittydir"
+    clone_or_update "https://github.com/alacritty/alacritty-theme.git"
+    popd
+}
+
 make_directories() {
     mkdir -p ~/.vim/swap
     mkdir -p ~/.config/awesome
@@ -80,6 +89,7 @@ case "$1" in
         _copy alacritty.toml ~/.config/alacritty/alacritty.toml
 
         confirm "Clone Vim plugins?" && deploy_vim_plugins
+        confirm "Clone Alacritty themes?" && deploy_alacritty
         ;;
     *)
         file_status bash_profile ~/.bash_profile
