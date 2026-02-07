@@ -74,6 +74,12 @@ file_status() {
     fi
 }
 
+show_diff() {
+    if [ -e "$2" ]; then
+        diff -u --color "$1" "$2"
+    fi
+}
+
 case "$1" in
     "run")
         make_directories
@@ -91,6 +97,19 @@ case "$1" in
         confirm "Clone Vim plugins?" && deploy_vim_plugins
         confirm "Clone Alacritty themes?" && deploy_alacritty
         ;;
+
+    "diff")
+        show_diff bash_profile ~/.bash_profile
+        show_diff bashrc ~/.bashrc
+        show_diff gdbinit ~/.gdbinit
+        show_diff gitconfig ~/.gitconfig
+        show_diff rc.lua ~/.config/awesome/rc.lua
+        show_diff tmux.conf ~/.tmux.conf
+        show_diff vimrc ~/.vim/vimrc
+        show_diff Xresources ~/.Xresources
+        show_diff alacritty.toml ~/.config/alacritty/alacritty.toml
+        ;;
+
     *)
         file_status bash_profile ~/.bash_profile
         file_status bashrc ~/.bashrc
