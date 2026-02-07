@@ -3,6 +3,17 @@
 THISDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 BACKUP_SUFFIX="_backup"
 
+declare -Ar config_files=(
+    ["bash_profile"]=~/.bash_profile
+    ["bashrc"]=~/.bashrc
+    ["gdbinit"]=~/.gdbinit
+    ["gitconfig"]=~/.gitconfig
+    ["rc.lua"]=~/.config/awesome/rc.lua
+    ["tmux.conf"]=~/.tmux.conf
+    ["vimrc"]=~/.vim/vimrc
+    ["Xresources"]=~/.Xresources
+    ["alacritty.toml"]=~/.config/alacritty/alacritty.toml )
+
 confirm() {
     echo "$@ (Y/n)"
     read -sn 1 choice
@@ -84,42 +95,27 @@ case "$1" in
     "run")
         make_directories
 
-        _copy bash_profile ~/.bash_profile
-        _copy bashrc ~/.bashrc
-        _copy gdbinit ~/.gdbinit
-        _copy gitconfig ~/.gitconfig
-        _copy rc.lua ~/.config/awesome/rc.lua
-        _copy tmux.conf ~/.tmux.conf
-        _copy vimrc ~/.vim/vimrc
-        _copy Xresources ~/.Xresources
-        _copy alacritty.toml ~/.config/alacritty/alacritty.toml
+        for f in ${!config_files[@]}
+        do
+            _copy "$f" "${config_files[$f]}"
+        done
 
         confirm "Clone Vim plugins?" && deploy_vim_plugins
         confirm "Clone Alacritty themes?" && deploy_alacritty
         ;;
 
     "diff")
-        show_diff bash_profile ~/.bash_profile
-        show_diff bashrc ~/.bashrc
-        show_diff gdbinit ~/.gdbinit
-        show_diff gitconfig ~/.gitconfig
-        show_diff rc.lua ~/.config/awesome/rc.lua
-        show_diff tmux.conf ~/.tmux.conf
-        show_diff vimrc ~/.vim/vimrc
-        show_diff Xresources ~/.Xresources
-        show_diff alacritty.toml ~/.config/alacritty/alacritty.toml
+        for f in ${!config_files[@]}
+        do
+            show_diff "$f" "${config_files[$f]}"
+        done
         ;;
 
     *)
-        file_status bash_profile ~/.bash_profile
-        file_status bashrc ~/.bashrc
-        file_status gdbinit ~/.gdbinit
-        file_status gitconfig ~/.gitconfig
-        file_status rc.lua ~/.config/awesome/rc.lua
-        file_status tmux.conf ~/.tmux.conf
-        file_status vimrc ~/.vim/vimrc
-        file_status Xresources ~/.Xresources
-        file_status alacritty.toml ~/.config/alacritty/alacritty.toml
+        for f in ${!config_files[@]}
+        do
+            file_status "$f" "${config_files[$f]}"
+        done
 
         echo -e "\nUsage:"
         echo    "  $0 <run> - copy files in place"
