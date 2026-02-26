@@ -30,6 +30,7 @@ fi
 export HISTCONTROL=ignoredups
 export XKB_DEFAULT_LAYOUT="fi"
 export EDITOR=vim
+export BC_ENV_ARGS="$HOME/.bcrc"
 
 # enable color support of ls and also add handy aliases
 if [ "$TERM" != "dumb" ]; then
