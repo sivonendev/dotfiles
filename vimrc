@@ -37,6 +37,9 @@ let g:airline_powerline_fonts = 1
 " Fix snipmate
 let g:snipMate = { 'snippet_version' : 1 }
 
+" Use C++17 as default
+let g:ale_cpp_cc_options = 'std=c++17 -Wall'
+
 " Esc is too far away
 map § <ESC>
 map! § <ESC>
