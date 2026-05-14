@@ -118,6 +118,7 @@ case "$1" in
         done
 
         echo -e "\nUsage:"
-        echo    "  $0 <run> - copy files in place"
+        echo    "  $0 <run>  - copy files in place"
+        echo    "  $0 <diff> - show diff of the files in place"
         ;;
 esac
