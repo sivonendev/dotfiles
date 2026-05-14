@@ -24,6 +24,7 @@ set cursorline
 set wildignore=.o,.exe,.dll,.so,.class,.pyc
 set directory=$HOME/.vim/swap//
 set noswapfile
+set fillchars+=vert:\▏ 
 
 syntax on
 
